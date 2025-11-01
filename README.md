@@ -126,6 +126,15 @@ MySQL (RDS) + Redis Cache
 
 ---
 
+## 🔗 Important Links
+
+- [PayPal Standard Checkout API Documentation](https://developer.paypal.com/docs/checkout/)
+- [PayPal REST API Reference](https://developer.paypal.com/docs/api/overview/)
+- [Spring Boot Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/)
+- [Redis Official Documentation](https://redis.io/documentation)
+- [AWS RDS Documentation](https://docs.aws.amazon.com/rds/index.html)
+- [Micrometer Metrics](https://micrometer.io/docs)
+
 ## 📝 License
 
 This project is licensed under the **MIT License** — you are free to use, modify, and distribute with proper attribution.
