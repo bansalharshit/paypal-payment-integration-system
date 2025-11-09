@@ -27,11 +27,4 @@ public class PaymentController {
 		
 		return response;
 	}
-	
-	@PostConstruct
-	void init() {
-		log.info("PaymentController initialized "
-				+ "paymentService:{}", paymentService);
-	}
-
 }
