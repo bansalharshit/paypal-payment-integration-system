@@ -1,11 +1,14 @@
 package com.hulkhiretech.payments.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hulkhiretech.payments.pojo.CreateOrderReq;
+import com.hulkhiretech.payments.pojo.CreateOrderRes;
+import com.hulkhiretech.payments.pojo.CreateOrderRes;
 import com.hulkhiretech.payments.service.interfaces.PaymentService;
 
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,12 +20,13 @@ public class PaymentController {
 	private final PaymentService paymentService;
 	
 	@PostMapping("/payments")
-	public String createOrder() {
+	public CreateOrderRes createOrder(@RequestBody CreateOrderReq createOrderReq) {
 		// TODO once the request & response is finalize, update this logic
 		
-		log.info("Creating order in PayPal provider service");
+		log.info("Creating order in PayPal provider service || createOrderReq: {}", createOrderReq);
 		
-		String response = paymentService.createOrder();
+		CreateOrderRes response = paymentService.createOrder(createOrderReq);
+		
 		log.info("Order creation response from service: {}", response);
 		
 		return response;

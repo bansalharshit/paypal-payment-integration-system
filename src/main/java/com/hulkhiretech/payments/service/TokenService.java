@@ -9,13 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hulkhiretech.payments.constant.Constant;
 import com.hulkhiretech.payments.http.HttpRequest;
 import com.hulkhiretech.payments.http.HttpServiceEngine;
 import com.hulkhiretech.payments.paypal.res.PayPalOAuthToken;
+import com.hulkhiretech.payments.util.JsonUtil;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +25,7 @@ public class TokenService {
 	
 	private final HttpServiceEngine httpServiceEngine;
 	
-	//TODO, implement Redis based and take care of expiry
+	//TODO, implement Redis based and take care of expire
 	private static String accessToken; 
 	
 	@Value("${paypal.client.id}")
@@ -39,7 +37,7 @@ public class TokenService {
 	@Value("${paypal.oauth.url}")
 	private String outhUrl;
 	
-	private final ObjectMapper objectMapper;
+	private final JsonUtil jsonUtil;
 	
 	/*
 	 * 
@@ -77,14 +75,12 @@ public class TokenService {
 		String tokenBody = response.getBody();
 		log.info("Access Token Retrieved: {}", tokenBody);
 		
-		try {
-			PayPalOAuthToken token =objectMapper.readValue(tokenBody, PayPalOAuthToken.class);
-			log.info("Parsed OAuth token response: {}", token);
-			return token.getAcessToken();
-		}  catch (Exception e) {
-			log.error("Error parsing OAuth token response: {}", e.getMessage(), e);
-			throw new RuntimeException("Failed to parse OAuth token response: " + e.getMessage());
-		}
+		PayPalOAuthToken token = jsonUtil.fromJson(tokenBody, PayPalOAuthToken.class);
+		accessToken = token.getAcessToken();
+		log.info("cached access token for future use");
+		
+		return accessToken;
+		
 	}
 
 }

@@ -12,4 +12,5 @@ public class PayPalOAuthToken {
 	
 	@JsonProperty("expires_in")
 	private int expiresIn;
+	
 }

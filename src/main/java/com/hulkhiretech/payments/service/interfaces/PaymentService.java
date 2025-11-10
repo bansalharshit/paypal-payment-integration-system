@@ -1,7 +1,10 @@
 package com.hulkhiretech.payments.service.interfaces;
 
+import com.hulkhiretech.payments.pojo.CreateOrderReq;
+import com.hulkhiretech.payments.pojo.CreateOrderRes;
+
 public interface PaymentService {
 	
-	public String createOrder();
+	public CreateOrderRes createOrder(CreateOrderReq createOrderReq);
 
 }
